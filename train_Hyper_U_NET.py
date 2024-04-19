@@ -9,29 +9,29 @@ from datetime import datetime
 import math
 import cv2
 import glob
-import numpy as np
+# import numpy as np
 from numpy import zeros
 from numpy import ones
 from numpy import vstack, hstack
 from numpy.random import randn, rand
 from numpy.random import randint, permutation
-import os
-import tensorflow as tf
-from tensorflow.keras import optimizers
-# from tensorflow.keras.models import Model
-from tensorflow.keras.utils import plot_model
+# import os
+# import tensorflow as tf
+# from tensorflow.keras import optimizers
+# # from tensorflow.keras.models import Model
+# from tensorflow.keras.utils import plot_model
 from tensorflow.keras.applications import VGG16
-from tensorflow.keras import models
-from sklearn.utils import shuffle
-from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array, array_to_img
-import numpy as np 
+# from tensorflow.keras import models
+# from sklearn.utils import shuffle
+# from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array, array_to_img
+import numpy as np
 import os
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras.optimizers import *
-from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
-from tensorflow.keras import backend as keras
-from skimage.metrics import structural_similarity as ssim
+# from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
+# from tensorflow.keras import backend as keras
+# from skimage.metrics import structural_similarity as ssim
 
 ## convert RGB to the personal LAB (LAB2) 
 # the input R,G,B,  must be 1D from 0 to 255 
@@ -365,13 +365,18 @@ while((i<epochs_max) and (stop==0)):
             train_imgs[i2,:,:,:] = np.reshape(ab,(1,sz0,sz1,2))
 
         print('HyperUNET iteration number ',(iter1-1),' sub-iter = ',i1+1)
-        history_model1 = model1.fit(train_input, train_imgs,
-                epochs=epochs1,  # shuffle=True,
-                batch_size=batch_size1,
-                validation_data=(val_input, val_imgs),
-                validation_freq=1)
-        a=history_model1.history['loss']
-        lossTr=lossTr+a[0]
+        if i1 == (N // batch_size1) - 1:
+            history_model1 = model1.fit(train_input, train_imgs,
+                                        epochs=epochs1,  # shuffle=True,
+                                        batch_size=batch_size1,
+                                        validation_data=(val_input, val_imgs),
+                                        validation_freq=1)
+        else:
+            history_model1 = model1.fit(train_input, train_imgs,
+                                        epochs=epochs1,  # shuffle=True,
+                                        batch_size=batch_size1)
+        a = history_model1.history['loss']
+        lossTr = lossTr + a[0]
 
     tr_Acc[iter1-1,0]=iter1-1
     tr_Acc[iter1-1,1]=lossTr/N1
