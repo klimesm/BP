@@ -8,7 +8,7 @@ Veškeré informace o práci jsou dostupné z odkazu:https://github.com/klimesm/
 Původní skript je dostupný z odkazu: https://github.com/3DOM-FBK/Hyper_U_Net
 Práce autorů původního skriptu: https://www.mdpi.com/1862998
 
-Pozn. Tent skript slouží k trénování sítě Hyper-U-Net
+Pozn. Tento skript slouží k trénování sítě Hyper-U-Net
 """
 
 from datetime import datetime
