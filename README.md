@@ -11,3 +11,5 @@ Ke spuštění skriptu obarveni_ortofota_p.py je nezbytné mít ve stejné slož
 K vyzkoušení skriptu byla vytvořena historická i současná zkušební data, která jsou dostupná z odkazu níže.
 
 Vytvořený dataset, ukázky výsledků, zkušební data, soubory s neuronovými sítěmi a text bakalářské práce jsou dostupné z následujícího odkazu: https://drive.google.com/drive/folders/1bCNt9SDk21IgJXf0VHyGvrQ8hlHP2fqq?usp=sharing
+
+V případě dotazů či podnětů ke zlepšení mě neváhejte kontaktovat: klimesmatej01@gmail.com
