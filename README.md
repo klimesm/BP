@@ -1,4 +1,4 @@
-V tomto repozitáři jsou dostupné veškeré programové výstupy, které byly vyhotoveny v rámci bakalářské práce na téma Tvorba aplikace na obarvení historického panchromatického ortofota.
+V tomto repozitáři jsou programové výstupy, které byly vyhotoveny v rámci bakalářské práce na téma Tvorba aplikace na obarvení historického panchromatického ortofota.
 
 Ke spuštění skriptu obarveni_ortofota_t.py, který k obarvení využívá síť trénovanou v rámci této bakalářské práce, je nezbytné mít ve stejné složce i soubor Hyper_U_Net_t.keras, který je dostupný z odkazu níže.
 
