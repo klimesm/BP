@@ -1,37 +1,31 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jun 17 11:37:09 2021
-
 @author: salim
+
+Převzato a upraveno v rámci bakalářské práce (2024)
+Veškeré informace o práci jsou dostupné z odkazu:https://github.com/klimesm/BP
+Původní skript je dostupný z odkazu: https://github.com/3DOM-FBK/Hyper_U_Net
+Práce autorů původního skriptu: https://www.mdpi.com/1862998
 """
 
 from datetime import datetime
 import math
 import cv2
 import glob
-# import numpy as np
+
 from numpy import zeros
 from numpy import ones
 from numpy import vstack, hstack
 from numpy.random import randn, rand
 from numpy.random import randint, permutation
-# import os
-# import tensorflow as tf
-# from tensorflow.keras import optimizers
-# # from tensorflow.keras.models import Model
-# from tensorflow.keras.utils import plot_model
 from tensorflow.keras.applications import VGG16
-# from tensorflow.keras import models
-# from sklearn.utils import shuffle
-# from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array, array_to_img
-import numpy as np
+import numpy as np 
 import os
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras.optimizers import *
-# from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
-# from tensorflow.keras import backend as keras
-# from skimage.metrics import structural_similarity as ssim
+
 
 ## convert RGB to the personal LAB (LAB2) 
 # the input R,G,B,  must be 1D from 0 to 255 
@@ -191,34 +185,13 @@ def unet1(input_size):
     conv9 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge9) # 45
     conv9 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9) # 46
 
-    # Up_f01 = conv1    
-    # Up_f02 = UpSampling2D(size = (2,2))(conv2)
-    # Up_f03 = UpSampling2D(size = (4,4))(conv3)
-    # Up_f04 = UpSampling2D(size = (8,8))(conv4)
-    # Up_f05 = UpSampling2D(size = (16,16))(conv5)
-    # Up_f06 = UpSampling2D(size = (32,32))(conv55)
-    # Up_f16 = UpSampling2D(size = (32,32))(conv66)
-    # Up_f15 = UpSampling2D(size = (16,16))(conv6)
-    # Up_f14 = UpSampling2D(size = (8,8))(conv7)
-    # Up_f13 = UpSampling2D(size = (4,4))(conv8)
-    # Up_f12 = UpSampling2D(size = (2,2))(conv9)
-    # Up_f11 = conv10
     
     Up_f01 = conv1     # 
     Up_f02 = UpSampling2D(size = (2,2))(conv2) # 47
-    # Up_f03 = UpSampling2D(size = (4,4))(conv3) # 49
-    # Up_f04 = UpSampling2D(size = (8,8))(conv4) # 40
-    # Up_f05 = UpSampling2D(size = (16,16))(conv5) # 50
-    # Up_f06 = UpSampling2D(size = (32,32))(conv55) # 51
-    # Up_f15 = UpSampling2D(size = (16,16))(conv66) # 52
-    # Up_f14 = UpSampling2D(size = (8,8))(conv6) # 53
-    # Up_f13 = UpSampling2D(size = (4,4))(conv7) # 54
+
     Up_f12 = UpSampling2D(size = (2,2))(conv8) # 48
-    # Up_f12 = UpSampling2D(size = (2,2))(conv9) 
     Up_f11 = conv9  #  conv10     # 56
 
-    # merge11 = concatenate([inputs,Up_f01,Up_f11,Up_f02,Up_f12,Up_f03,Up_f13,Up_f04,Up_f14,Up_f05,Up_f15,Up_f06,Up_f16], axis = 3)
-    # merge11 = concatenate([Up_f01,Up_f11,Up_f02,Up_f12,Up_f03,Up_f13], axis = 3)
     merge11 = concatenate([Up_f01,Up_f11,Up_f02,Up_f12], axis = 3) # 49
 
     conv11 = Conv2D(128, 3, activation = 'relu', padding = 'same',)(merge11) # 50
@@ -271,26 +244,34 @@ model1.layers[17].set_weights(model_ref.layers[17].get_weights())
 
 model1.compile(optimizer = Adam(learning_rate = 1e-4), loss = 'mean_absolute_error', metrics = ['RootMeanSquaredError'])
 
-print('-------------------------------------------------curent path=',cwd)
+print('-------------------------------------------------current path=',cwd)
 
 print('----- read data1 -------')
 
 # filesTr_list =  glob.glob(os.path.join(cwd +'/train_images/', '*.png'))
 
-filesTr_list = glob.glob(r'C:\skola\BP\python\pokus3\test_trenovaci_dlazdice\*.png')
+
+tr_relative_path = r'trenovaci_dlazdice\*.png'
+tr_full_path = os.path.join(cwd, tr_relative_path)
+filesTr_list = glob.glob(tr_full_path)
 N = len(filesTr_list)
-# validacni
-filesVal_list = glob.glob(r'C:\skola\BP\python\pokus3\test_validacni_dlazdice\*.png')
+
+# validacni data
+val_relative_path = r'validacni_dlazdice\*.png'
+val_full_path = os.path.join(cwd, val_relative_path)
+filesVal_list = glob.glob(val_full_path)
 Nval = len(filesVal_list)
 
-print('------------------------lenth tr = ',str(N))
+print('------------------------length tr = ',str(N))
+print('------------------------length val = ',str(Nval))
 
 
 bands = 2
 epochs1 = 1
-batch_size1 = 2
+batch_size1 = 4
 
-N1=np.uint16(N/batch_size1) #800
+N1=np.uint16(N//batch_size1)
+N1val=np.uint16(Nval//batch_size1)
 # N1=5
 N2=batch_size1
 
@@ -298,42 +279,22 @@ train_imgs=zeros((batch_size1,dim,dim,2))
 train_input=zeros((batch_size1,dim,dim,1))
 
 # validacni data
-val_imgs=zeros((Nval,dim,dim,2))
-val_input=zeros((Nval,dim,dim,1))
-rand_p = permutation(Nval)
-idi = 0
-for i2v in range(Nval):
-    ij = rand_p[idi]
-    idi = idi + 1
-    ima0 = cv2.imread(filesVal_list[ij][:])
-
-    sz0 = ima0.shape[0]
-    sz1 = ima0.shape[1]
-    ab = np.zeros((sz0, sz1, 2))
-    R1 = np.reshape(ima0[:, :, 0], (sz0 * sz1, 1))
-    G1 = np.reshape(ima0[:, :, 1], (sz0 * sz1, 1))
-    B1 = np.reshape(ima0[:, :, 2], (sz0 * sz1, 1))
-    L, A, B = RGB2LAB2(R1, G1, B1)
-    A = np.reshape(A, (sz0, sz1))
-    B = np.reshape(B, (sz0, sz1))
-    ab[:, :, 0] = A
-    ab[:, :, 1] = B
-    val_input[i2v, :, :, :] = np.reshape(L, (1, sz0, sz1, 1))
-    val_imgs[i2v, :, :, :] = np.reshape(ab, (1, sz0, sz1, 2))
+val_imgs=zeros((batch_size1,dim,dim,2))
+val_input=zeros((batch_size1,dim,dim,1))
 
 iter0=0
-
 print('start init tr1 --------------------------------------------------------------')
 start=datetime.now()
-tr_Acc=np.zeros((300,2))
-time_Tr=np.zeros((300,2))
+val_Acc=np.zeros((100,2))
+tren_Acc=np.zeros((100,2))
+time_Tr=np.zeros((100,2))
 
 MAE_list = []
 
 MAE_min=9999999999.99
 stop=0
 i=-1
-epochs_max=300
+epochs_max=100
 max_nb_min=3
 nb_min=0
 while((i<epochs_max) and (stop==0)):
@@ -341,13 +302,15 @@ while((i<epochs_max) and (stop==0)):
     start1=datetime.now()
     iter1=epochs1*(i+1)+iter0
     rand_p=permutation(N)
-    idi=0
+    rand_pv = permutation(Nval)
     lossTr=0
-    #for i1 in range(50):
+    lossVal = 0
+    idi=0
+    idiv=0
     for i1 in range(N//batch_size1):
         for i2 in range(N2):
             ij=rand_p[idi]
-            idi=idi+1
+            idi+=1
             ima0 = cv2.imread(filesTr_list[ij][:])
 
             sz0=ima0.shape[0]
@@ -365,32 +328,56 @@ while((i<epochs_max) and (stop==0)):
             train_imgs[i2,:,:,:] = np.reshape(ab,(1,sz0,sz1,2))
 
         print('HyperUNET iteration number ',(iter1-1),' sub-iter = ',i1+1)
-        if i1 == (N // batch_size1) - 1:
-            history_model1 = model1.fit(train_input, train_imgs,
+
+        history_model1 = model1.fit(train_input, train_imgs,
                                         epochs=epochs1,  # shuffle=True,
                                         batch_size=batch_size1,
-                                        validation_data=(val_input, val_imgs),
-                                        validation_freq=1)
-        else:
-            history_model1 = model1.fit(train_input, train_imgs,
-                                        epochs=epochs1,  # shuffle=True,
-                                        batch_size=batch_size1)
+                                        verbose=1)
         a = history_model1.history['loss']
         lossTr = lossTr + a[0]
 
-    tr_Acc[iter1-1,0]=iter1-1
-    tr_Acc[iter1-1,1]=lossTr/N1
+        if i1 == (N // batch_size1)-1 :
+            for i1v in range(N1val):
+                for i2v in range(N2):
+                    ijv = rand_pv[idiv]
+                    idiv+=1
+                    ima0 = cv2.imread(filesVal_list[ijv][:])
+
+                    sz0 = ima0.shape[0]
+                    sz1 = ima0.shape[1]
+                    ab = np.zeros((sz0, sz1, 2))
+                    R1 = np.reshape(ima0[:, :, 0], (sz0 * sz1, 1))
+                    G1 = np.reshape(ima0[:, :, 1], (sz0 * sz1, 1))
+                    B1 = np.reshape(ima0[:, :, 2], (sz0 * sz1, 1))
+                    L, A, B = RGB2LAB2(R1, G1, B1)
+                    A = np.reshape(A, (sz0, sz1))
+                    B = np.reshape(B, (sz0, sz1))
+                    ab[:, :, 0] = A
+                    ab[:, :, 1] = B
+                    val_input[i2v, :, :, :] = np.reshape(L, (1, sz0, sz1, 1))
+                    val_imgs[i2v, :, :, :] = np.reshape(ab, (1, sz0, sz1, 2))
+
+                print('HyperUNET iteration number ', (iter1 - 1), ' validation sub-iter = ', i1v + 1)
+                loss, metrics = model1.evaluate(val_input, val_imgs, batch_size=batch_size1)
+                lossVal = lossVal + loss
+
+    val_Acc[iter1-1,0]=iter1-1
+    val_Acc[iter1-1,1]=lossVal/N1val
+    tren_Acc[iter1-1,0]=iter1-1
+    tren_Acc[iter1-1,1]=lossTr/N1
+
     stopTr=datetime.now()
     timeTr=stopTr-start1
     time_Tr[iter1-1,0]=iter1-1
     time_Tr[iter1-1,1]=timeTr.seconds
+    print('val_loss: ',val_Acc[iter1-1,1],' MAE_min: ',MAE_min)
 
-    if(tr_Acc[iter1-1,1]>MAE_min):
+    if(val_Acc[iter1-1,1]>MAE_min):
         nb_min=nb_min+1
     else:
-        MAE_min = tr_Acc[iter1-1,1]
+        MAE_min = val_Acc[iter1-1,1]
         nb_min = 0
-        model1.save(cwd +'/Hyper_U_NET_t1.keras')
+        model1.save(cwd +'/Hyper_U_NET_t2.keras')
 
     if(nb_min>max_nb_min):
         stop=1
@@ -414,7 +401,8 @@ while((i<epochs_max) and (stop==0)):
     if(iter1==256):
         model1.compile(optimizer = Adam(learning_rate = 1e-7), loss = 'mean_absolute_error', metrics = ['RootMeanSquaredError'])
 
-    np.save(cwd +'/tr_Acc_Hyper_U_NET_t1',tr_Acc)
-    np.save(cwd +'/Tr_runtime_Hyper_U_NET_t1',time_Tr)
+    np.save(cwd +'/val_Acc_Hyper_U_NET_t2',val_Acc)
+    np.save(cwd +'/Tr_runtime_Hyper_U_NET_t2',time_Tr)
+    np.save(cwd + '/tren_Acc_Hyper_U_NET_t2', tren_Acc)
     
 
