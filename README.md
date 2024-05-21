@@ -6,4 +6,4 @@ Ke spuštění skriptu obarveni_ortofota_t.py je nezbytné mít ve stejné slož
 
 Ke spuštění skriptu obarveni_ortofota_p.py je nezbytné mít ve stejné složce i soubor Hyper_U_Net_p.h5, který obsahuje samotnou neuronovou síť a je dostupný z odkazu níže.
 
-Vytvořený dataset, ukázky výsledků, data určená ke zkoušení obarvení a text samotné práce jsou z důvodu velkého objemu také dostupné z následujícího odkazu: https://drive.google.com/drive/folders/1bCNt9SDk21IgJXf0VHyGvrQ8hlHP2fqq?usp=sharing
+Vytvořený dataset, ukázky výsledků, zkušební data a text samotné práce jsou z důvodu velkého objemu také dostupné z následujícího odkazu: https://drive.google.com/drive/folders/1bCNt9SDk21IgJXf0VHyGvrQ8hlHP2fqq?usp=sharing
