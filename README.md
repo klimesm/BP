@@ -4,4 +4,4 @@ Ke spuštění skriptu obarveni_ortofota_t.py, který k obarvení využívá sí
 
 Ke spuštění skriptu obarveni_ortofota_p.py, který k obarvení využívá síť trénovanou v rámci článku https://www.mdpi.com/1862998, je nezbytné mít ve stejné složce i soubor Hyper_U_Net_p.h5, který je dostupný z odkazu níže.
 
-Vytvořený dataset, ukázky výsledků a text samotné práce jsou také dostupné z následujícího odkazu: https://drive.google.com/drive/folders/1bCNt9SDk21IgJXf0VHyGvrQ8hlHP2fqq?usp=sharing
+Vytvořený dataset, ukázky výsledků a text samotné práce jsou z důvodu velkého objemu také dostupné z následujícího odkazu: https://drive.google.com/drive/folders/1bCNt9SDk21IgJXf0VHyGvrQ8hlHP2fqq?usp=sharing
