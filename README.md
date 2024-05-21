@@ -12,4 +12,4 @@ K vyzkoušení skriptu byla vytvořena historická i současná zkušební data,
 
 Vytvořený dataset, ukázky výsledků, zkušební data, soubory s neuronovými sítěmi a text bakalářské práce jsou dostupné z následujícího odkazu: https://drive.google.com/drive/folders/1bCNt9SDk21IgJXf0VHyGvrQ8hlHP2fqq?usp=sharing
 
-V případě dotazů či podnětů ke zlepšení mě neváhejte kontaktovat. mail: klimesmatej01@gmail.com
+V případě dotazů či podnětů ke zlepšení mě neváhejte kontaktovat na e-mail: klimesmatej01@gmail.com
