@@ -1,6 +1,6 @@
 V tomto repozitáři jsou programové výstupy, které byly vyhotoveny v rámci bakalářské práce na téma Tvorba aplikace na obarvení historického panchromatického ortofota.
 
-Konkrétní verze python knihoven, které byly použity jsou v souboru requirements.txt. Je pravděpodobné, že skripty bude možno spustit i s jinými použitými verzemi.
+Konkrétní verze Python knihoven, které byly použity jsou v souboru requirements.txt. Je pravděpodobné, že skripty bude možno spustit i s jinými verzemi.
 
 K vyzkoušení funkčnosti obarvení lze využít skript obarveni_ortofota_t.py, který k obarvení využívá síť trénovanou v rámci této bakalářské práce, nebo skript obarveni_ortofota_p.py, který k obarvení využívá síť trénovanou v rámci článku https://www.mdpi.com/1862998. GitHub s daty autorů článku: https://github.com/3DOM-FBK/Hyper_U_Net
 
