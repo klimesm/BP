@@ -3,10 +3,12 @@
 Created on Thu Jun 17 11:37:09 2021
 @author: salim
 
-Převzato a upraveno v rámci bakalářské práce (2024)
+Převzato a upraveno v rámci bakalářské práce na Fsv ČVUT v Praze (2024)
 Veškeré informace o práci jsou dostupné z odkazu:https://github.com/klimesm/BP
 Původní skript je dostupný z odkazu: https://github.com/3DOM-FBK/Hyper_U_Net
 Práce autorů původního skriptu: https://www.mdpi.com/1862998
+
+Pozn. Tent skript slouží k trénování sítě Hyper-U-Net
 """
 
 from datetime import datetime
